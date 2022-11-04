@@ -8,7 +8,7 @@ Excellent for toy projects and debugging homework :-)
 
 Messages printed to the standard error are prefixed with the file name and the line number, for example:
 
-```
+```cpp
 #include "perr.h"
 
 int main() {
@@ -35,7 +35,7 @@ To disable colors, compile with `-DNOCOLOR`.
 The header also contains overloads that allow convenient printing of STL containers,
 such as a vector, a map, or a set.
 
-```
+```cpp
 #include <vector>
 #include "perr.h"
 
@@ -62,7 +62,7 @@ vector-int.cpp : 12   V[]
 To print a vector of structs, define `operator<<` only for the struct,
 like so:
 
-```
+```cpp
 #include <vector>
 #include "perr.h"
 
@@ -94,7 +94,7 @@ vector-struct.cpp : 16   V[{2x3}, {4x5}]
 calls the `.stream()` method immediately after.
 A call to the `stream()` method returns `std::cerr`.
 
-```
+```cpp
   #define perr PrettyStream( std::cerr, __PRETTY_FUNCTION__, __FILE__, __LINE__ ).stream()
 ```
 
