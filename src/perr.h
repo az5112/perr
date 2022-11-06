@@ -11,7 +11,7 @@
 #include <unordered_set>
 #include <unordered_map>
 
-#define perr PrettyStream( std::cerr, __PRETTY_FUNCTION__, __FILE__, __LINE__ ).stream()
+#define perr PrettyStream(std::cerr, __PRETTY_FUNCTION__, __FILE__, __LINE__).stream()
 
 struct ESCAPE {
 #ifdef NOCOLOR

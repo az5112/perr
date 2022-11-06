@@ -95,7 +95,7 @@ calls the `.stream()` method immediately after.
 A call to the `stream()` method returns `std::cerr`.
 
 ```cpp
-  #define perr PrettyStream( std::cerr, __PRETTY_FUNCTION__, __FILE__, __LINE__ ).stream()
+#define perr PrettyStream(std::cerr, __PRETTY_FUNCTION__, __FILE__, __LINE__).stream()
 ```
 
 The constructor captures the name of the function and the file and the line number.
