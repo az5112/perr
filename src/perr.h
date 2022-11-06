@@ -1,3 +1,6 @@
+#ifndef _PERR_H_
+#define _PERR_H_
+
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -286,3 +289,5 @@ struct Writer {
 		return os;
 	}
 };
+
+#endif
