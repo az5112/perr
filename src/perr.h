@@ -186,10 +186,10 @@ struct QUOTE {
 	inline static std::string_view CHAR = "";
 };
 
-template< > std::string_view QUOTE< std::string_view >::CHAR = "\"";
-template< > std::string_view QUOTE< std::string      >::CHAR = "\"";
-template< > std::string_view QUOTE< const char*      >::CHAR = "\"";
-template< > std::string_view QUOTE< char             >::CHAR = "\'"; // single quote
+template< > inline std::string_view QUOTE< std::string_view >::CHAR = "\"";
+template< > inline std::string_view QUOTE< std::string      >::CHAR = "\"";
+template< > inline std::string_view QUOTE< const char*      >::CHAR = "\"";
+template< > inline std::string_view QUOTE< char             >::CHAR = "\'"; // single quote
 
 template< typename CONTAINER, typename CNFO >
 struct Writer;
