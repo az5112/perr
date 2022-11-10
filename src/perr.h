@@ -238,13 +238,17 @@ std::ostream& operator<<(std::ostream& os, std::unordered_map< key_type, mapped_
 
 template< typename CONTAINER, typename CNFO >
 struct Writer {
-	std::ostream& write_container_start(std::ostream& os) const {
-		return write_color(os, Config::non_value_color, CNFO::tag, CNFO::open_mark);
-	}
-
 	std::ostream& write(std::ostream& os, CONTAINER cont) {
 		return _write< typename CNFO::vkv >(os, cont);
 	};
+private:
+	std::ostream& _write_container_start(std::ostream& os) const {
+		return write_color(os, Config::non_value_color, CNFO::tag, CNFO::open_mark);
+	}
+
+	std::ostream& _write_container_end(std::ostream& os) const {
+		return write_color(os, Config::non_value_color, CNFO::close_mark);
+	}
 
 	template< typename VKV >
 	std::ostream& _write(std::ostream& os, CONTAINER cont);
@@ -255,7 +259,7 @@ struct Writer {
 		int const sz = cont.size();
 		int cnt = 0;
 
-		write_container_start(os);
+		_write_container_start(os);
 
 		for (auto el: cont) {
 			++cnt;
@@ -264,7 +268,7 @@ struct Writer {
 			write_color(os, Config::non_value_color, quote, (cnt == sz) ? "" : CNFO::elem_separator);
 		}
 
-		os << CNFO::close_mark;
+		_write_container_end(os);
 		return os;
 	}
 
@@ -275,7 +279,7 @@ struct Writer {
 		int const sz = cont.size();
 		int cnt = 0;
 
-		write_container_start(os);
+		_write_container_start(os);
 		for (auto el: cont) {
 			++cnt;
 			write_color(os, Config::non_value_color, quote);
@@ -285,7 +289,7 @@ struct Writer {
 			write_color(os, Config::non_value_color, quote, (cnt == sz) ? "" : CNFO::elem_separator);
 		}
 
-		os << CNFO::close_mark;
+		_write_container_end(os);
 		return os;
 	}
 };
