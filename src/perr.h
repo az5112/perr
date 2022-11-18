@@ -7,6 +7,7 @@
 #include <string>
 #include <format>
 
+#include <array>
 #include <vector>
 #include <list>
 #include <set>
@@ -46,6 +47,14 @@ struct Config {
 
 using VALUES_T = char;
 using KEY_VALUES_T = int;
+
+struct ArrayWriter {
+	inline static std::string_view tag = "A";
+	inline static std::string_view open_mark = "[";
+	inline static std::string_view close_mark = "]";
+	inline static std::string_view elem_separator = ", ";
+	using vkv = VALUES_T;
+};
 
 struct VectorWriter {
 	inline static std::string_view tag = "V";
@@ -193,6 +202,13 @@ template< > inline std::string_view QUOTE< char             >::CHAR = "\'"; // s
 
 template< typename CONTAINER, typename CNFO >
 struct Writer;
+
+template< typename value_type, size_t N >
+std::ostream& operator<<(std::ostream& os, std::array< value_type, N > a) {
+	return Writer<
+		std::array< value_type, N >, ArrayWriter
+	> {}.write(os, a);
+}
 
 template< typename value_type, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::vector< value_type, allocator_type > v) {
