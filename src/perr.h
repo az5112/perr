@@ -97,6 +97,14 @@ struct UnorderedSetWriter {
 	using vkv = VALUES_T;
 };
 
+struct UnorderedMultiSetWriter {
+	inline static std::string_view tag = "ms";
+	inline static std::string_view open_mark = "{";
+	inline static std::string_view close_mark = "}";
+	inline static std::string_view elem_separator = ", ";
+	using vkv = VALUES_T;
+};
+
 struct UnorderedMapWriter {
 	inline static std::string_view tag = "m";
 	inline static std::string_view open_mark = "{";
@@ -243,6 +251,13 @@ std::ostream& operator<<(std::ostream& os, std::unordered_set< key_type, hasher,
 	return Writer<
 		std::unordered_set< key_type, hasher, key_equal, allocator_type >, UnorderedSetWriter
 	> {}.write(os, s);
+}
+
+template< typename key_type, typename hasher, typename key_equal, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::unordered_multiset< key_type, hasher, key_equal, allocator_type > us) {
+	return Writer<
+		std::unordered_multiset< key_type, hasher, key_equal, allocator_type >, UnorderedMultiSetWriter
+	> {}.write(os, us);
 }
 
 template< typename key_type, typename mapped_type, typename hasher, typename key_equal, typename allocator_type >
