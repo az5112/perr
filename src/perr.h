@@ -15,7 +15,9 @@
 #include <unordered_set>
 #include <unordered_map>
 
-#define perr PrettyStream(std::cerr, __PRETTY_FUNCTION__, __FILE__, __LINE__).stream()
+#define perr prettystreams::PrettyStream(std::cerr, __PRETTY_FUNCTION__, __FILE__, __LINE__).stream()
+
+namespace prettystreams {
 
 struct ESCAPE {
 #ifdef NOCOLOR
@@ -114,8 +116,6 @@ struct UnorderedMapWriter {
 	using vkv = KEY_VALUES_T;
 };
 
-
-
 /* count (recursively) the total length of multiple std::string_views */
 template< typename SV >
 size_t sv_length(SV const& sv) {
@@ -211,62 +211,6 @@ template< > inline std::string_view QUOTE< char             >::CHAR = "\'"; // s
 template< typename CONTAINER, typename CNFO >
 struct Writer;
 
-template< typename value_type, size_t N >
-std::ostream& operator<<(std::ostream& os, std::array< value_type, N > a) {
-	return Writer<
-		std::array< value_type, N >, ArrayWriter
-	> {}.write(os, a);
-}
-
-template< typename value_type, typename allocator_type >
-std::ostream& operator<<(std::ostream& os, std::vector< value_type, allocator_type > v) {
-	return Writer<
-		std::vector< value_type, allocator_type >, VectorWriter
-	> {}.write(os, v);
-}
-
-template< typename value_type, typename allocator_type >
-std::ostream& operator<<(std::ostream& os, std::list< value_type, allocator_type > l) {
-	return Writer<
-		std::list< value_type, allocator_type >, ListWriter
-	> {}.write(os, l);
-}
-
-template< typename key_type, typename compare_type, typename allocator_type >
-std::ostream& operator<<(std::ostream& os, std::set< key_type, compare_type, allocator_type > s) {
-	return Writer<
-		std::set< key_type, compare_type, allocator_type >, SetWriter
-	> {}.write(os, s);
-}
-
-template< typename key_type, typename mapped_type, typename key_compare, typename allocator_type >
-std::ostream& operator<<(std::ostream& os, std::map< key_type, mapped_type, key_compare, allocator_type > m) {
-	return Writer<
-		std::map< key_type, mapped_type, key_compare, allocator_type >, MapWriter
-	> {}.write(os, m);
-}
-
-template< typename key_type, typename hasher, typename key_equal, typename allocator_type >
-std::ostream& operator<<(std::ostream& os, std::unordered_set< key_type, hasher, key_equal, allocator_type > s) {
-	return Writer<
-		std::unordered_set< key_type, hasher, key_equal, allocator_type >, UnorderedSetWriter
-	> {}.write(os, s);
-}
-
-template< typename key_type, typename hasher, typename key_equal, typename allocator_type >
-std::ostream& operator<<(std::ostream& os, std::unordered_multiset< key_type, hasher, key_equal, allocator_type > us) {
-	return Writer<
-		std::unordered_multiset< key_type, hasher, key_equal, allocator_type >, UnorderedMultiSetWriter
-	> {}.write(os, us);
-}
-
-template< typename key_type, typename mapped_type, typename hasher, typename key_equal, typename allocator_type >
-std::ostream& operator<<(std::ostream& os, std::unordered_map< key_type, mapped_type, hasher, key_equal, allocator_type > m) {
-	return Writer<
-		std::unordered_map< key_type, mapped_type, hasher, key_equal, allocator_type >, UnorderedMapWriter
-	> {}.write(os, m);
-}
-
 template< typename CONTAINER, typename CNFO >
 struct Writer {
 	std::ostream& write(std::ostream& os, CONTAINER cont) {
@@ -324,5 +268,69 @@ private:
 		return os;
 	}
 };
+
+}; // namespace prettystreams
+
+
+
+namespace std {
+
+template< typename value_type, size_t N >
+std::ostream& operator<<(std::ostream& os, std::array< value_type, N > a) {
+	return prettystreams::Writer<
+		std::array< value_type, N >, prettystreams::ArrayWriter
+	> {}.write(os, a);
+}
+
+template< typename value_type, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::vector< value_type, allocator_type > v) {
+	return prettystreams::Writer<
+		std::vector< value_type, allocator_type >, prettystreams::VectorWriter
+	> {}.write(os, v);
+}
+
+template< typename value_type, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::list< value_type, allocator_type > l) {
+	return prettystreams::Writer<
+		std::list< value_type, allocator_type >, prettystreams::ListWriter
+	> {}.write(os, l);
+}
+
+template< typename key_type, typename compare_type, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::set< key_type, compare_type, allocator_type > s) {
+	return prettystreams::Writer<
+		std::set< key_type, compare_type, allocator_type >, prettystreams::SetWriter
+	> {}.write(os, s);
+}
+
+template< typename key_type, typename mapped_type, typename key_compare, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::map< key_type, mapped_type, key_compare, allocator_type > m) {
+	return prettystreams::Writer<
+		std::map< key_type, mapped_type, key_compare, allocator_type >, prettystreams::MapWriter
+	> {}.write(os, m);
+}
+
+template< typename key_type, typename hasher, typename key_equal, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::unordered_set< key_type, hasher, key_equal, allocator_type > s) {
+	return prettystreams::Writer<
+		std::unordered_set< key_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedSetWriter
+	> {}.write(os, s);
+}
+
+template< typename key_type, typename hasher, typename key_equal, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::unordered_multiset< key_type, hasher, key_equal, allocator_type > us) {
+	return prettystreams::Writer<
+		std::unordered_multiset< key_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedMultiSetWriter
+	> {}.write(os, us);
+}
+
+template< typename key_type, typename mapped_type, typename hasher, typename key_equal, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::unordered_map< key_type, mapped_type, hasher, key_equal, allocator_type > m) {
+	return prettystreams::Writer<
+		std::unordered_map< key_type, mapped_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedMapWriter
+	> {}.write(os, m);
+}
+
+}; // namespace std
 
 #endif
