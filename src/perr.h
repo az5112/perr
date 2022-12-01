@@ -249,7 +249,8 @@ private:
 
 	template< >
 	std::ostream& _write< KEY_VALUES_T >(std::ostream& os, CONTAINER cont) {
-		std::string_view const quote = QUOTE< typename CONTAINER::key_type >::CHAR;
+		std::string_view const kquote = QUOTE< typename CONTAINER::key_type >::CHAR;
+		std::string_view const vquote = QUOTE< typename CONTAINER::value_type >::CHAR;
 
 		int const sz = cont.size();
 		int cnt = 0;
@@ -257,11 +258,11 @@ private:
 		_write_container_start(os);
 		for (auto el: cont) {
 			++cnt;
-			write_color(os, Config::non_value_color, quote);
+			write_color(os, Config::non_value_color, kquote);
 			os << el.first;
-			write_color(os, Config::non_value_color, quote, CNFO::key_value_separator, quote);
+			write_color(os, Config::non_value_color, kquote, CNFO::key_value_separator, vquote);
 			os << el.second;
-			write_color(os, Config::non_value_color, quote, (cnt == sz) ? "" : CNFO::elem_separator);
+			write_color(os, Config::non_value_color, vquote, (cnt == sz) ? "" : CNFO::elem_separator);
 		}
 
 		_write_container_end(os);
