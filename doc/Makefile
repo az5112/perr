@@ -29,3 +29,5 @@ clean:
 
 install: README.md
 	mv -v README.md ..
+
+.DELETE_ON_ERROR:
