@@ -70,7 +70,7 @@ struct ListWriter {
 	inline static std::string_view tag = "L";
 	inline static std::string_view open_mark = "(";
 	inline static std::string_view close_mark = ")";
-	inline static std::string_view elem_separator = " -> ";
+	inline static std::string_view elem_separator = " <-> ";
 	using vkv = VALUES_T;
 };
 
