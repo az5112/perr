@@ -82,6 +82,14 @@ struct SetWriter {
 	using vkv = VALUES_T;
 };
 
+struct MultiSetWriter {
+	inline static std::string_view tag = "MS";
+	inline static std::string_view open_mark = "<";
+	inline static std::string_view close_mark = ">";
+	inline static std::string_view elem_separator = ", ";
+	using vkv = VALUES_T;
+};
+
 struct MapWriter {
 	inline static std::string_view tag = "M";
 	inline static std::string_view open_mark = "<";
@@ -302,6 +310,13 @@ std::ostream& operator<<(std::ostream& os, std::set< key_type, compare_type, all
 	return prettystreams::Writer<
 		std::set< key_type, compare_type, allocator_type >, prettystreams::SetWriter
 	> {}.write(os, s);
+}
+
+template< typename key_type, typename compare_type, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::multiset< key_type, compare_type, allocator_type > ms) {
+	return prettystreams::Writer<
+		std::multiset< key_type, compare_type, allocator_type >, prettystreams::MultiSetWriter
+	> {}.write(os, ms);
 }
 
 template< typename key_type, typename mapped_type, typename key_compare, typename allocator_type >

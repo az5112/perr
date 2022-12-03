@@ -63,13 +63,14 @@ vector-int.cpp : 12   V[]
 Other containers are shown below.
 
 ```
-        Array ┇ A[1, 2, 3, 4]
-       Vector ┇ V[1, 2, 3, 4]
-         List ┇ L(1 <-> 2 <-> 3 <-> 4)
-          Set ┇ S<1, 2, 3, 4>
-Unordered Set ┇ s{1, 2, 3, 4}
-          Map ┇ M<'a' : 1, 'c' : 2>
-Unordered Map ┇ m{'a' : 1, 'c' : 2}
+            Array  ┇  A[1, 2, 3, 4]
+           Vector  ┇  V[1, 2, 3, 4]
+             List  ┇  L(1 <-> 2 <-> 3 <-> 4)
+              Set  ┇  S<1, 2, 3, 4>
+         Multiset  ┇ MS<1, 1, 2, 2>
+    Unordered Set  ┇  s{1, 2, 3, 4}
+              Map  ┇  M<'a' : 1, 'c' : 2>
+    Unordered Map  ┇  m{'a' : 1, 'c' : 2}
 ```
 
 To print a container of structs, define `operator<<` only for the struct,
