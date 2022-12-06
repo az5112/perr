@@ -68,8 +68,9 @@ Other containers are shown below.
              List  ┇  L(1 <-> 2 <-> 3 <-> 4)
               Set  ┇  S<1, 2, 3, 4>
          Multiset  ┇ MS<1, 1, 2, 2>
+              Map  ┇  M<'a' : 1, 'b' : 2, 'c' : 3>
+         Multimap  ┇ MM<'a' : 1, 'a' : 2, 'b' : 3>
     Unordered Set  ┇  s{1, 2, 3, 4}
-              Map  ┇  M<'a' : 1, 'c' : 2>
     Unordered Map  ┇  m{'a' : 1, 'c' : 2}
 ```
 

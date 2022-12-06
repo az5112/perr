@@ -99,6 +99,15 @@ struct MapWriter {
 	using vkv = KEY_VALUES_T;
 };
 
+struct MultiMapWriter {
+	inline static std::string_view tag = "MM";
+	inline static std::string_view open_mark = "<";
+	inline static std::string_view close_mark = ">";
+	inline static std::string_view elem_separator = ", ";
+	inline static std::string_view key_value_separator = " : ";
+	using vkv = KEY_VALUES_T;
+};
+
 struct UnorderedSetWriter {
 	inline static std::string_view tag = "s";
 	inline static std::string_view open_mark = "{";
@@ -323,6 +332,13 @@ template< typename key_type, typename mapped_type, typename key_compare, typenam
 std::ostream& operator<<(std::ostream& os, std::map< key_type, mapped_type, key_compare, allocator_type > m) {
 	return prettystreams::Writer<
 		std::map< key_type, mapped_type, key_compare, allocator_type >, prettystreams::MapWriter
+	> {}.write(os, m);
+}
+
+template< typename key_type, typename mapped_type, typename key_compare, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::multimap< key_type, mapped_type, key_compare, allocator_type > m) {
+	return prettystreams::Writer<
+		std::multimap< key_type, mapped_type, key_compare, allocator_type >, prettystreams::MultiMapWriter
 	> {}.write(os, m);
 }
 

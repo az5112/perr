@@ -8,7 +8,8 @@ int main() {
 	std::list< int >                my_lst  = {1, 2, 3, 4};
 	std::set< int >                 my_set  = {1, 2, 3, 4};
 	std::multiset< int >            my_mset = {1, 1, 2, 2};
-	std::map< char, int >           my_map  = {{'a', 1}, {'c', 2}};
+	std::map< char, int >           my_map  = {{'a', 1}, {'b', 2}, {'c', 3}};
+	std::multimap< char, int >      my_mmap = {{'a', 1}, {'a', 2}, {'b', 3}};
 	std::unordered_set< int >       my_uset = {1, 2, 3, 4};
 	std::unordered_map< char, int > my_umap = {{'a', 1}, {'c', 2}};
 
@@ -17,7 +18,8 @@ int main() {
 	perr << std::setw(colwidth) << "List "          << " ┇  " << my_lst;
 	perr << std::setw(colwidth) << "Set "           << " ┇  " << my_set;
 	perr << std::setw(colwidth) << "Multiset "      << " ┇ "  << my_mset;
-	perr << std::setw(colwidth) << "Unordered Set " << " ┇  " << my_uset;
 	perr << std::setw(colwidth) << "Map "           << " ┇  " << my_map;
+	perr << std::setw(colwidth) << "Multimap "      << " ┇ "  << my_mmap;
+	perr << std::setw(colwidth) << "Unordered Set " << " ┇  " << my_uset;
 	perr << std::setw(colwidth) << "Unordered Map " << " ┇  " << my_umap;
 };
