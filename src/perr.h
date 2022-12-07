@@ -74,24 +74,18 @@ struct ListWriter {
 	using vkv = VALUES_T;
 };
 
-struct SetWriter {
-	inline static std::string_view tag = "S";
+template< bool MULTI >
+struct SetWriter { // set and multiset
+	inline static std::string_view tag = MULTI ? "s" : "S";
 	inline static std::string_view open_mark = "<";
 	inline static std::string_view close_mark = ">";
 	inline static std::string_view elem_separator = ", ";
 	using vkv = VALUES_T;
 };
 
-struct MultiSetWriter {
-	inline static std::string_view tag = "MS";
-	inline static std::string_view open_mark = "<";
-	inline static std::string_view close_mark = ">";
-	inline static std::string_view elem_separator = ", ";
-	using vkv = VALUES_T;
-};
-
-struct MapWriter {
-	inline static std::string_view tag = "M";
+template< bool MULTI >
+struct MapWriter { // map and multimap
+	inline static std::string_view tag =  MULTI ? "m" : "M";
 	inline static std::string_view open_mark = "<";
 	inline static std::string_view close_mark = ">";
 	inline static std::string_view elem_separator = ", ";
@@ -99,33 +93,18 @@ struct MapWriter {
 	using vkv = KEY_VALUES_T;
 };
 
-struct MultiMapWriter {
-	inline static std::string_view tag = "MM";
-	inline static std::string_view open_mark = "<";
-	inline static std::string_view close_mark = ">";
-	inline static std::string_view elem_separator = ", ";
-	inline static std::string_view key_value_separator = " : ";
-	using vkv = KEY_VALUES_T;
-};
-
-struct UnorderedSetWriter {
-	inline static std::string_view tag = "s";
+template< bool MULTI >
+struct UnorderedSetWriter { // unordered set and multiset
+	inline static std::string_view tag = MULTI ? "s" : "S";
 	inline static std::string_view open_mark = "{";
 	inline static std::string_view close_mark = "}";
 	inline static std::string_view elem_separator = ", ";
 	using vkv = VALUES_T;
 };
 
-struct UnorderedMultiSetWriter {
-	inline static std::string_view tag = "ms";
-	inline static std::string_view open_mark = "{";
-	inline static std::string_view close_mark = "}";
-	inline static std::string_view elem_separator = ", ";
-	using vkv = VALUES_T;
-};
-
-struct UnorderedMapWriter {
-	inline static std::string_view tag = "m";
+template< bool MULTI >
+struct UnorderedMapWriter { // unordered map and multimap
+	inline static std::string_view tag = MULTI ? "m" : "M";
 	inline static std::string_view open_mark = "{";
 	inline static std::string_view close_mark = "}";
 	inline static std::string_view elem_separator = ", ";
@@ -317,49 +296,56 @@ std::ostream& operator<<(std::ostream& os, std::list< value_type, allocator_type
 template< typename key_type, typename compare_type, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::set< key_type, compare_type, allocator_type > s) {
 	return prettystreams::Writer<
-		std::set< key_type, compare_type, allocator_type >, prettystreams::SetWriter
+		std::set< key_type, compare_type, allocator_type >, prettystreams::SetWriter< false >
 	> {}.write(os, s);
 }
 
 template< typename key_type, typename compare_type, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::multiset< key_type, compare_type, allocator_type > ms) {
 	return prettystreams::Writer<
-		std::multiset< key_type, compare_type, allocator_type >, prettystreams::MultiSetWriter
+		std::multiset< key_type, compare_type, allocator_type >, prettystreams::SetWriter< true >
 	> {}.write(os, ms);
 }
 
 template< typename key_type, typename mapped_type, typename key_compare, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::map< key_type, mapped_type, key_compare, allocator_type > m) {
 	return prettystreams::Writer<
-		std::map< key_type, mapped_type, key_compare, allocator_type >, prettystreams::MapWriter
+		std::map< key_type, mapped_type, key_compare, allocator_type >, prettystreams::MapWriter< false >
 	> {}.write(os, m);
 }
 
 template< typename key_type, typename mapped_type, typename key_compare, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::multimap< key_type, mapped_type, key_compare, allocator_type > m) {
 	return prettystreams::Writer<
-		std::multimap< key_type, mapped_type, key_compare, allocator_type >, prettystreams::MultiMapWriter
+		std::multimap< key_type, mapped_type, key_compare, allocator_type >, prettystreams::MapWriter < true >
 	> {}.write(os, m);
 }
 
 template< typename key_type, typename hasher, typename key_equal, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::unordered_set< key_type, hasher, key_equal, allocator_type > s) {
 	return prettystreams::Writer<
-		std::unordered_set< key_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedSetWriter
+		std::unordered_set< key_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedSetWriter< false >
 	> {}.write(os, s);
 }
 
 template< typename key_type, typename hasher, typename key_equal, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::unordered_multiset< key_type, hasher, key_equal, allocator_type > us) {
 	return prettystreams::Writer<
-		std::unordered_multiset< key_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedMultiSetWriter
+		std::unordered_multiset< key_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedSetWriter< true >
 	> {}.write(os, us);
 }
 
 template< typename key_type, typename mapped_type, typename hasher, typename key_equal, typename allocator_type >
 std::ostream& operator<<(std::ostream& os, std::unordered_map< key_type, mapped_type, hasher, key_equal, allocator_type > m) {
 	return prettystreams::Writer<
-		std::unordered_map< key_type, mapped_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedMapWriter
+		std::unordered_map< key_type, mapped_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedMapWriter< false >
+	> {}.write(os, m);
+}
+
+template< typename key_type, typename mapped_type, typename hasher, typename key_equal, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::unordered_multimap< key_type, mapped_type, hasher, key_equal, allocator_type > m) {
+	return prettystreams::Writer<
+		std::unordered_multimap< key_type, mapped_type, hasher, key_equal, allocator_type >, prettystreams::UnorderedMapWriter< true >
 	> {}.write(os, m);
 }
 

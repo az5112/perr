@@ -32,7 +32,7 @@ containers.log : containers.exe
 containers.cut : containers.log
 	cut -b 25- $< > $@
 
-nuke-perr.exe : nuke-perr.hpp nuke-perr.cpp ../src/perr.h
+nuke-perr.exe : nuke-perr.cpp nuke-perr.hpp ../src/perr.h
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:

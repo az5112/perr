@@ -43,7 +43,9 @@ This produces:
 ```
 
 Other containers are shown below.
-
+The multi versions of maps and sets are marked with small letters (`m` vs `M` and `s` vs `S`).
+Unordered maps and sets use curly braces `{}` as opposed to angled brackets `<>`.
+(Mnemonic: `<` is used for comparison, hence ordered containers.)
 ```
 [% INCLUDE "containers.cut" -%]
 ```

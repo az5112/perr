@@ -61,17 +61,21 @@ vector-int.cpp : 12   V[]
 ```
 
 Other containers are shown below.
-
+The multi versions of maps and sets are marked with small letters (`m` vs `M` and `s` vs `S`).
+Unordered maps and sets use curly braces `{}` as opposed to angled brackets `<>`.
+(Mnemonic: `<` is used for comparison, hence ordered containers.)
 ```
-            Array  ┇  A[1, 2, 3, 4]
-           Vector  ┇  V[1, 2, 3, 4]
-             List  ┇  L(1 <-> 2 <-> 3 <-> 4)
-              Set  ┇  S<1, 2, 3, 4>
-         Multiset  ┇ MS<1, 1, 2, 2>
-              Map  ┇  M<'a' : 1, 'b' : 2, 'c' : 3>
-         Multimap  ┇ MM<'a' : 1, 'a' : 2, 'b' : 3>
-    Unordered Set  ┇  s{1, 2, 3, 4}
-    Unordered Map  ┇  m{'a' : 1, 'c' : 2}
+              Array  ┇ A[1, 2, 3, 4]
+             Vector  ┇ V[1, 2, 3, 4]
+               List  ┇ L(1 <-> 2 <-> 3 <-> 4)
+                Set  ┇ S<1, 2, 3, 4>
+           Multiset  ┇ s<1, 1, 2, 2>
+                Map  ┇ M<'a' : 1, 'b' : 2, 'c' : 3>
+           Multimap  ┇ m<'a' : 1, 'a' : 2, 'b' : 3>
+      Unordered Set  ┇ S{1, 2, 3, 4}
+ Unordered Multiset  ┇ s{1, 2, 2, 2}
+      Unordered Map  ┇ M{'a' : 1, 'c' : 2}
+ Unordered Multimap  ┇ m{'a' : 1, 'a' : 2}
 ```
 
 To print a container of structs, define `operator<<` only for the struct,
