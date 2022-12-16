@@ -8,6 +8,7 @@
 #include <format>
 
 #include <array>
+#include <deque>
 #include <vector>
 #include <list>
 #include <set>
@@ -52,6 +53,14 @@ using KEY_VALUES_T = int;
 
 struct ArrayWriter {
 	inline static std::string_view tag = "A";
+	inline static std::string_view open_mark = "[";
+	inline static std::string_view close_mark = "]";
+	inline static std::string_view elem_separator = ", ";
+	using vkv = VALUES_T;
+};
+
+struct DequeWriter {
+	inline static std::string_view tag = "D";
 	inline static std::string_view open_mark = "[";
 	inline static std::string_view close_mark = "]";
 	inline static std::string_view elem_separator = ", ";
@@ -284,6 +293,13 @@ std::ostream& operator<<(std::ostream& os, std::vector< value_type, allocator_ty
 	return prettystreams::Writer<
 		std::vector< value_type, allocator_type >, prettystreams::VectorWriter
 	> {}.write(os, v);
+}
+
+template< typename value_type, typename allocator_type >
+std::ostream& operator<<(std::ostream& os, std::deque< value_type, allocator_type > d) {
+	return prettystreams::Writer<
+		std::deque< value_type, allocator_type >, prettystreams::DequeWriter
+	> {}.write(os, d);
 }
 
 template< typename value_type, typename allocator_type >
