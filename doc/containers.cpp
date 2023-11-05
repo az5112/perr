@@ -14,6 +14,7 @@ int main() {
 	std::unordered_multiset< int >       my_umset = {1, 2, 2, 2};
 	std::unordered_map< char, int >      my_umap  = {{'a', 1}, {'c', 2}};
 	std::unordered_multimap< char, int > my_ummap = {{'a', 1}, {'a', 2}};
+	std::deque< int >                    my_deque = {1, 2, 3};
 
 	perr << std::setw(colwidth) << "Array "              << " ┇ " << my_arr;
 	perr << std::setw(colwidth) << "Vector "             << " ┇ " << my_vec;
@@ -26,4 +27,5 @@ int main() {
 	perr << std::setw(colwidth) << "Unordered Multiset " << " ┇ " << my_umset;
 	perr << std::setw(colwidth) << "Unordered Map "      << " ┇ " << my_umap;
 	perr << std::setw(colwidth) << "Unordered Multimap " << " ┇ " << my_ummap;
+	perr << std::setw(colwidth) << "Deque "              << " ┇ " << my_deque;
 };

@@ -76,6 +76,7 @@ Unordered maps and sets use curly braces `{}` as opposed to angled brackets `<>`
  Unordered Multiset  ┇ s{1, 2, 2, 2}
       Unordered Map  ┇ M{'a' : 1, 'c' : 2}
  Unordered Multimap  ┇ m{'a' : 1, 'a' : 2}
+              Deque  ┇ D[1, 2, 3]
 ```
 
 To print a container of structs, define `operator<<` only for the struct,
